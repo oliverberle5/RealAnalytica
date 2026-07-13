@@ -1,0 +1,14 @@
+# Raw/derived agent data -- proprietary per-agent brokerage data, never goes to GitHub
+*.csv
+
+# Python environment (reproducible from pyproject.toml/requirements, not committed)
+.venv/
+__pycache__/
+*.py[cod]
+
+# Third-party reference clone (Karpathy's autoresearch, unmodified upstream repo)
+AutoResearch/original/
+
+# autoresearch experiment-loop artifact (per AutoResearch/program.md convention)
+results.tsv
+run.log
