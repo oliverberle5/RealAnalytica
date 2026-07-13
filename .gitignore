@@ -3,8 +3,14 @@
 
 # Python environment (reproducible from pyproject.toml/requirements, not committed)
 .venv/
+env/
+venv/
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
 
 # Third-party reference clone (Karpathy's autoresearch, unmodified upstream repo)
 AutoResearch/original/
@@ -12,3 +18,32 @@ AutoResearch/original/
 # autoresearch experiment-loop artifact (per AutoResearch/program.md convention)
 results.tsv
 run.log
+
+# Claude Code
+.claude/
+claude_code_logs/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# IDEs
+.vscode/settings.json
+.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# Build artifacts
+dist/
+build/
+*.log
