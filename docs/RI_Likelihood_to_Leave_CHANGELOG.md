@@ -1,5 +1,20 @@
 # Decision Changelog: Agent Likelihood-to-Leave Model
 
+> **Archived engineering log — paths predate the 2026-09-01 reorganisation.**
+> This document was written while RI's models lived at the repo root. Read its
+> file references with this mapping:
+>
+> | as written | now |
+> |---|---|
+> | `modeling/` (sales) | `RI/Forecasted_Sales/` |
+> | `Final_Model/` (leave) | `RI/Likelihood_to_Leave/` |
+> | `Likelihood_to_Leave_Algorithm/<the CSV>` | `data/<the CSV>` |
+> | `AutoResearch/` | not in this repository — research scratch, kept locally |
+>
+> The findings and figures are unchanged; only the paths moved.
+
+
+
 Raw source material for an academic write-up — not the write-up itself. This is a
 factual, chronological record of every material decision made on this project: what was
 tried, what alternatives were considered and rejected, the quantitative result, and the

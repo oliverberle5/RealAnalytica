@@ -18,7 +18,7 @@ looked fine.
 
 Connecticut was assessed and deferred — the dataset contains no CT market, and
 this was re-verified against the current file on 2026-08-30 with no change. See
-`../CT_EXPANSION_ASSESSMENT.md` for the full finding and what data would unblock it.
+`../docs/CT_EXPANSION_ASSESSMENT.md` for the full finding and what data would unblock it.
 
 ---
 
@@ -27,12 +27,18 @@ this was re-verified against the current file on 2026-08-30 with no change. See
 Both models read the **same** file the RI models read:
 
 ```
-Likelihood_to_Leave_Algorithm/leave-dataset-with-team-distinction.csv
+data/leave-dataset-with-team-distinction-mls-id.csv
 ```
 
-That file is not copied into `MA/`. It is 332 MB and already exists twice in the
-workspace; a third copy would add nothing but drift risk. Both MA `data.py`
-files reference it by relative path.
+That file is not copied into `MA/`. It is ~298 MB, and all four models (RI/MA ×
+leave/sales) resolve this one canonical path, differing only by their `mls_code`
+filter. A per-state copy would add nothing but drift risk.
+
+> **Updated 2026-09-01.** This section previously pointed at
+> `Likelihood_to_Leave_Algorithm/leave-dataset-with-team-distinction.csv` — both a
+> superseded filename and a location that no longer exists. The state-major
+> reorganisation moved the canonical dataset to `data/` at the repo root. The
+> file itself is not in git; see the top-level [README](../README.md).
 
 The file bundles two MLS panels in one export, distinguished by `mls_code`:
 
@@ -63,7 +69,8 @@ machinery — is **byte-identical** to RI.
 Five things differ, each data-driven and marked inline in the source:
 
 1. **`MLS_CODE`** — `"riar"` → `"mlspin"`, in both `data.py` files.
-2. **`DATA_PATH`** — points at the RI project's CSV instead of a local copy.
+2. **`DATA_PATH`** — resolves the shared canonical dataset at `data/`, the same
+   file every other state reads.
 3. **`NON_MLS_MEMBER_AGENT_IDS`** — MLSPIN has its own synthetic placeholder
    record ("Non Member", `0d2b79f7-…`), a buyer-side catch-all bucket that is not
    a person. The RI placeholder's id appears nowhere in MLSPIN, so inheriting it
@@ -409,7 +416,7 @@ refit.** The file had gone stale on the retired `agent_profile_id` UUID: the
 2026-08-10 identifier switch landed in `data.py` but nothing re-ran the scoring,
 so for three weeks column 1 disagreed with every RI output and any join between
 them matched zero rows. Fixed by joining
-`../../Likelihood_to_Leave_Algorithm/agent_id_crosswalk.csv` on
+`agent_id_crosswalk.csv` (kept outside the repo with the source data) on
 `agent_profile_id` and replacing column 1 — all 27,019 rows resolved, none
 dropped, and **every other field is byte-identical to the reviewed July file**
 (verified row-for-row: 0 rows with any changed value).

@@ -22,7 +22,7 @@ cd C:\Users\olive\RA_Algorithms_White
 **A state is not a folder. A state is a value of `mls_code`.**
 
 All states read the *same* source CSV
-(`Likelihood_to_Leave_Algorithm/leave-dataset-with-team-distinction-mls-id.csv`)
+(`data/leave-dataset-with-team-distinction-mls-id.csv`)
 and differ only by that filter. There is no per-state data file, and creating
 one is the drift bug this infrastructure exists to prevent.
 

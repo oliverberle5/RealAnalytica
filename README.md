@@ -22,7 +22,7 @@ CatBoost in production:
 | | mean AUC | worst fold | agents scored |
 |---|---|---|---|
 | Massachusetts | **0.7529** | 0.7253 | 27,019 |
-| Rhode Island | **0.7440** | 0.7167 | ~4,600 |
+| Rhode Island | **0.7440** | 0.7167 | 4,606 |
 
 > MA leads on the mean by +0.0089 but **loses folds 3 and 5**, and the documented
 > 95% CI on 5-fold mean AUC is ≈ ±0.019. These are different markets; this is not
@@ -216,6 +216,14 @@ Read in this order:
   the nominal 50% level in MA). Integer discreteness forces the conformal band
   outward. Safe direction for a user-facing range, but a 50% units band should
   not be described as a 50% band.
+- **36 agents (0.13%) in the shipped MA file carry an impossible explanation** —
+  "300% of agents company-wide left in the last 12 months." The source feature
+  `company_exit_rate_12m` reaches 4.0 because departures are divided by *current*
+  headcount, so a company that shrank can exceed 1.0. The rate is a legitimate
+  risk signal at that magnitude; rendering it as "300% of agents" is not a
+  sentence that can be true. Needs a clamp in the explanation layer, not a model
+  change. Same family as the guardrail defect that once told 1,084 agents they
+  had "below-average listing activity" on 6–8 listings.
 - **RI's Sales `data.py` has no `MLS_CODE` constant** — it inlines `== "riar"`
   mid-function. Correct today; `states/verify.py` reports it as a warning
   because the one value whose job is to be the state switch should be greppable.

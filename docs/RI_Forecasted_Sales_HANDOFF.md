@@ -1,5 +1,20 @@
 # Handoff: Agent Forecasted Sales Algorithm
 
+> **Archived engineering log — paths predate the 2026-09-01 reorganisation.**
+> This document was written while RI's models lived at the repo root. Read its
+> file references with this mapping:
+>
+> | as written | now |
+> |---|---|
+> | `modeling/` (sales) | `RI/Forecasted_Sales/` |
+> | `Final_Model/` (leave) | `RI/Likelihood_to_Leave/` |
+> | `Likelihood_to_Leave_Algorithm/<the CSV>` | `data/<the CSV>` |
+> | `AutoResearch/` | not in this repository — research scratch, kept locally |
+>
+> The findings and figures are unchanged; only the paths moved.
+
+
+
 Read this fully before touching code. This is the sibling project to
 `../Likelihood_to_Leave_Algorithm` — same underlying panel data, different
 target and different purpose. Treat this file as assumptions + changelog:
