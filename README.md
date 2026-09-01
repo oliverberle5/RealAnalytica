@@ -5,7 +5,7 @@ built to run across states from one shared codebase.
 
 | Model | What it predicts | Output |
 |---|---|---|
-| **Likelihood to Leave** | Probability an agent switches brokerage in the next **3 months** | A calibrated percentage, a 1–4 risk tier, and three plain-language reasons |
+| **Likelihood to Leave** | Probability an agent switches brokerage in the next **3 months** | A calibrated percentage, a 1–4 risk tier, and up to five plain-language reasons (2.9 on average) |
 | **Forecasted Sales** | An agent's **next-12-month** dollar volume and unit count | A point estimate plus a calibrated range at six confidence levels, and the probability of zero production |
 
 Both currently run on **Rhode Island** (RIAR) and **Massachusetts** (MLSPIN).
