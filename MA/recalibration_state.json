@@ -1,0 +1,38 @@
+{
+  "last_run_utc": "2026-08-30T23:14:30Z",
+  "data_quarter": "2026-07-01",
+  "data_file": {
+    "name": "leave-dataset-with-team-distinction-mls-id.csv",
+    "size_bytes": 312675572
+  },
+  "n_agents": 27019,
+  "base_rate": 0.01639612003465269,
+  "bias_correction": 0.7259818338746878,
+  "corrected_base_rate": 0.011903285291186672,
+  "cut_points": [
+    0.011903285291186672,
+    0.035709855873560015,
+    0.07141971174712003
+  ],
+  "tier_counts": {
+    "1": 22822,
+    "2": 3591,
+    "3": 405,
+    "4": 201
+  },
+  "tier_shares": {
+    "1": 0.8446648654650432,
+    "2": 0.1329064732225471,
+    "3": 0.014989451867204559,
+    "4": 0.0074392094452052256
+  },
+  "new_tier_b_clusters": 0,
+  "adopted": true,
+  "outputs": [
+    "C:\\Users\\olive\\RA_Algorithms_White\\MA\\Likelihood_to_Leave\\current_agent_risk_scores.csv",
+    "C:\\Users\\olive\\RA_Algorithms_White\\MA\\Forecasted_Sales\\current_agent_sales_forecast.csv"
+  ],
+  "warnings": [],
+  "leave_elapsed_s": null,
+  "sales_elapsed_s": null
+}

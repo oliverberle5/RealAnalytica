@@ -1,0 +1,4 @@
+mls_agent_id,office_name,agent_city,agent_state,snapshot_date,percent_chance,risk_tier,risk_tier_label,risk_multiplier,why_top_driver,why_reason_2,why_reason_3,why_reason_4,why_reason_5
+EXAMPLE000,Example Realty A,Springfield,XX,2026-07-01,11.157,32,example_0,7.295,example_0,example_0,example_0,example_0,example_0
+EXAMPLE001,Example Realty B,Rivertown,XX,2026-07-01,2.118,26,example_1,5.436,example_1,example_1,example_1,example_1,example_1
+EXAMPLE002,Example Realty C,Lakeside,XX,2026-07-01,1.153,36,example_2,9.351,example_2,example_2,example_2,example_2,example_2

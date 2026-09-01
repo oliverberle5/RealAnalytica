@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# Data. NEVER committed.
+#
+# The source panel is ~298MB (over GitHub's 100MB hard limit) and contains
+# personal data on ~50,000 named real estate agents. The scored outputs carry
+# per-person churn-risk and income predictions against real names. Neither
+# belongs in version control, private repo or not.
+# See README.md "Getting the data".
+# ---------------------------------------------------------------------------
+data/
+*.csv
+!docs/schema/*.csv
+# Aggregate recalibration history -- no agent-level data, and it is the evidence
+# trail for what each quarterly run actually did.
+!MA/recalibration_log.csv
+
+# Scored production outputs and their backups (named agents + predictions)
+current_agent_risk_scores.csv*
+current_agent_sales_forecast.csv*
+agent_explanations*.csv
+leave_risk_scores.csv
+*.uuid_keyed_backup
+
+# Point-in-time backups of source files. Useful locally while editing; noise in
+# a repository that already keeps full history.
+*_backup
+*.backup
+
+# Generated reports containing agent names
+*.pdf
+
+# ---------------------------------------------------------------------------
+# Environments, caches, build artifacts
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Model training scratch
+catboost_info/
+*.pkl
+*.joblib
+*.bin
+
+# ---------------------------------------------------------------------------
+# Superseded working directories, kept locally, not part of the project
+#
+# These held RI's code before the 2026-09-01 state-major reorganisation and
+# now hold only the virtualenv, retired dataset copies, and research scratch.
+# ---------------------------------------------------------------------------
+Likelihood_to_Leave_Algorithm/
+Forecasted_Sales_Algorithm/
+Coaching_Score_Algorithm/
+GCI_Calculator/
+Demo_Site/
+Seller_Likelihood_Algorithm_Edits/
+.stfolder/
+_scaffold_test/
+
+# ---------------------------------------------------------------------------
+# Run logs. The few that are cited as evidence in a README are force-added.
+# ---------------------------------------------------------------------------
+*.log
+!MA/Forecasted_Sales/remeasure_accuracy_ma.log
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.png
