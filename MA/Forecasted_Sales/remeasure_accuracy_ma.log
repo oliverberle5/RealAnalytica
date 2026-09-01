@@ -1,0 +1,79 @@
+[data] excluded 20 non-MLS-member placeholder rows
+[remeasure] exclusions ON
+[remeasure] resolved panel: 407,152 agent-quarters, 16 quarters, 38,466 agents
+[remeasure] history given to the model: 359,263 rows (2021-10-01..2025-01-01) -- it splits its own calib window off the end
+[remeasure] HELD-OUT TEST: 47,889 rows (2025-04-01..2025-07-01), 25,209 agents, never seen by any fit
+
+[remeasure] seed 0 ...
+[remeasure] seed 1 ...
+[remeasure] seed 2 ...
+
+==============================================================================
+VOLUME   (3 seeds: mean [min..max])
+==============================================================================
+  true zero-rate in test window     31.2%
+  P(zero) Brier                     0.1405  [0.1405..0.1406]
+  P(zero) AUC                       0.8567  [0.8565..0.8568]
+
+  -- WHOLE MODEL, unconditional  (1-P(zero)) x point, all test rows
+     n                              47,889
+     r2                             0.6408  [0.6367..0.6441]             naive-persistence: 0.7324
+     mae                            $1,502,939  [$1,501,237..$1,504,635] naive-persistence: $1,778,205
+     median_ape                     46.6%  [46.6%..46.7%]                naive-persistence: 58.0%
+     spearman                       0.7385  [0.7384..0.7386]             naive-persistence: 0.6082
+     capture_top10                  70.7%  [70.6%..70.7%]                naive-persistence: 67.1%
+     capture_top20                  72.6%  [72.4%..72.6%]                naive-persistence: 68.9%
+
+  -- CONDITIONAL ON NONZERO  (the spreadsheet's point_estimate)
+     n                              32,948
+     r2                             0.6252  [0.6207..0.6288]             naive-persistence: 0.7342
+     mae                            $1,857,123  [$1,854,592..$1,859,370] naive-persistence: $2,168,267
+     median_ape                     43.7%  [43.7%..43.8%]                naive-persistence: 58.0%
+     spearman                       0.7260  [0.7259..0.7261]             naive-persistence: 0.6634
+     capture_top10                  70.0%  [70.0%..70.2%]                naive-persistence: 66.4%
+     capture_top20                  72.4%  [72.3%..72.4%]                naive-persistence: 69.1%
+
+  -- INTERVAL COVERAGE / WIDTH (nonzero test rows)
+     level   coverage                    mean width                      median width
+     50      51.1%  [51.0%..51.3%]       $2,987,558  [$2,946,901..$3,034,459]$1,992,973
+     65      66.1%  [66.0%..66.1%]       $4,189,166  [$4,170,675..$4,199,827]$2,789,394
+     70      71.1%  [71.0%..71.1%]       $4,640,094  [$4,609,271..$4,661,160]$3,101,137
+     75      76.0%  [75.8%..76.1%]       $5,196,039  [$5,151,630..$5,269,279]$3,469,636
+     80      81.1%  [81.0%..81.2%]       $5,878,084  [$5,819,981..$5,942,542]$3,913,610
+     95      95.5%  [95.5%..95.5%]       $9,703,858  [$9,684,457..$9,726,098]$6,543,595
+
+==============================================================================
+UNITS   (3 seeds: mean [min..max])
+==============================================================================
+  true zero-rate in test window     23.7%
+  P(zero) Brier                     0.1203  [0.1203..0.1203]
+  P(zero) AUC                       0.8705  [0.8703..0.8708]
+
+  -- WHOLE MODEL, unconditional  (1-P(zero)) x point, all test rows
+     n                              47,889
+     r2                             0.7382  [0.7380..0.7385]             naive-persistence: 0.7199
+     mae                            2.70  [2.70..2.70]                   naive-persistence: 3.11
+     median_ape                     41.0%  [41.0%..41.1%]                naive-persistence: 50.0%
+     spearman                       0.7674  [0.7674..0.7675]             naive-persistence: 0.6718
+     capture_top10                  71.0%  [70.9%..71.1%]                naive-persistence: 69.0%
+     capture_top20                  75.0%  [74.9%..75.0%]                naive-persistence: 73.1%
+
+  -- CONDITIONAL ON NONZERO  (the spreadsheet's point_estimate)
+     n                              36,552
+     r2                             0.7269  [0.7267..0.7271]             naive-persistence: 0.7102
+     mae                            3.08  [3.08..3.08]                   naive-persistence: 3.44
+     median_ape                     40.9%  [40.8%..40.9%]                naive-persistence: 50.0%
+     spearman                       0.7596  [0.7595..0.7598]             naive-persistence: 0.7210
+     capture_top10                  69.8%  [69.7%..70.0%]                naive-persistence: 67.7%
+     capture_top20                  73.0%  [73.0%..73.1%]                naive-persistence: 71.8%
+
+  -- INTERVAL COVERAGE / WIDTH (nonzero test rows)
+     level   coverage                    mean width                      median width
+     50      56.8%  [56.4%..57.3%]       5.39  [5.32..5.43]              3.78
+     65      72.0%  [71.1%..72.6%]       7.47  [7.30..7.57]              5.15
+     70      76.5%  [75.8%..76.8%]       8.35  [8.22..8.41]              5.82
+     75      79.9%  [79.8%..80.0%]       9.23  [9.12..9.29]              6.40
+     80      83.1%  [82.0%..83.7%]       10.23  [10.19..10.26]           7.07
+     95      96.2%  [96.0%..96.2%]       16.05  [15.97..16.13]           11.17
+
+[remeasure] per-seed metrics -> remeasure_accuracy_results.csv

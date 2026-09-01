@@ -1,49 +1,73 @@
-# Raw/derived agent data -- proprietary per-agent brokerage data, never goes to GitHub
+# ---------------------------------------------------------------------------
+# Data. NEVER committed.
+#
+# The source panel is ~298MB (over GitHub's 100MB hard limit) and contains
+# personal data on ~50,000 named real estate agents. The scored outputs carry
+# per-person churn-risk and income predictions against real names. Neither
+# belongs in version control, private repo or not.
+# See README.md "Getting the data".
+# ---------------------------------------------------------------------------
+data/
 *.csv
+!docs/schema/*.csv
+# Aggregate recalibration history -- no agent-level data, and it is the evidence
+# trail for what each quarterly run actually did.
+!MA/recalibration_log.csv
 
-# Python environment (reproducible from pyproject.toml/requirements, not committed)
+# Scored production outputs and their backups (named agents + predictions)
+current_agent_risk_scores.csv*
+current_agent_sales_forecast.csv*
+agent_explanations*.csv
+leave_risk_scores.csv
+*.uuid_keyed_backup
+
+# Point-in-time backups of source files. Useful locally while editing; noise in
+# a repository that already keeps full history.
+*_backup
+*.backup
+
+# Generated reports containing agent names
+*.pdf
+
+# ---------------------------------------------------------------------------
+# Environments, caches, build artifacts
+# ---------------------------------------------------------------------------
 .venv/
-env/
 venv/
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
 *.egg-info/
+.ipynb_checkpoints/
 
-# Third-party reference clone (Karpathy's autoresearch, unmodified upstream repo)
-AutoResearch/original/
+# Model training scratch
+catboost_info/
+*.pkl
+*.joblib
+*.bin
 
-# autoresearch experiment-loop artifact (per AutoResearch/program.md convention)
-results.tsv
-run.log
+# ---------------------------------------------------------------------------
+# Superseded working directories, kept locally, not part of the project
+#
+# These held RI's code before the 2026-09-01 state-major reorganisation and
+# now hold only the virtualenv, retired dataset copies, and research scratch.
+# ---------------------------------------------------------------------------
+Likelihood_to_Leave_Algorithm/
+Forecasted_Sales_Algorithm/
+Coaching_Score_Algorithm/
+GCI_Calculator/
+Demo_Site/
+Seller_Likelihood_Algorithm_Edits/
+.stfolder/
+_scaffold_test/
 
-# Claude Code
-.claude/
-claude_code_logs/
+# ---------------------------------------------------------------------------
+# Run logs. The few that are cited as evidence in a README are force-added.
+# ---------------------------------------------------------------------------
+*.log
+!MA/Forecasted_Sales/remeasure_accuracy_ma.log
 
-# Node
-node_modules/
-npm-debug.log
-yarn-error.log
-package-lock.json
-yarn.lock
-
-# IDEs
-.vscode/settings.json
-.vscode/extensions.json
-.idea/
-*.swp
-*.swo
-
-# OS
+# OS noise
 .DS_Store
 Thumbs.db
-.env
-.env.local
-
-# Build artifacts
-dist/
-build/
-*.log
+desktop.ini
+*.png

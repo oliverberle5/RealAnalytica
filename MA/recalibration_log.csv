@@ -1,0 +1,2 @@
+run_utc,data_quarter,n_agents,base_rate,bias_correction,corrected_base_rate,tier1_share,tier2_share,tier3_share,tier4_share,new_tier_b_clusters,adopted,n_warnings
+2026-08-30T23:14:30Z,2026-07-01,27019,0.01639612003465269,0.7259818338746878,0.011903285291186672,0.8446648654650432,0.1329064732225471,0.014989451867204559,0.0074392094452052256,0,True,0
