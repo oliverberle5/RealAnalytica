@@ -19,30 +19,69 @@ Adding a state is a documented, tooled procedure — see
 **Likelihood to Leave** — forward-chaining (expanding-window) validation, 5 folds,
 CatBoost in production:
 
-| | mean AUC | worst fold | agents scored |
-|---|---|---|---|
-| Massachusetts | **0.7529** | 0.7253 | 27,019 |
-| Rhode Island | **0.7440** | 0.7167 | 4,606 |
+| | mean AUC | worst fold | base churn rate | agents scored |
+|---|---|---|---|---|
+| **Massachusetts** | **0.7529** | 0.7253 | 1.75% | 27,019 |
+| **Rhode Island** | **0.7440** | 0.7167 | 1.96% | 4,606 |
+
+**What those columns mean**
+
+- **AUC** — given one agent who left and one who stayed, how often the model
+  ranks the leaver as riskier. 0.50 is a coin flip; **0.75 is strong for a
+  3-month window** where fewer than 2 agents in 100 actually move.
+- **Worst fold** — the weakest of the 5 time-ordered validation folds. Quoted
+  because a mean can hide one bad quarter.
+- **Base churn rate** — how often the event actually happens. It is low, which is
+  why tier cut points are multiples of the base rate rather than fixed
+  percentages: they move with the market on their own.
 
 > MA leads on the mean by +0.0089 but **loses folds 3 and 5**, and the documented
 > 95% CI on 5-fold mean AUC is ≈ ±0.019. These are different markets; this is not
 > an apples-to-apples "MA is better" claim.
 
-**Forecasted Sales** — held-out final 2 quarters, 3 seeds, measured against a
-naive-persistence baseline ("they sell next year what they sold last year"):
+**Forecasted Sales** — held-out final 2 quarters (never seen by any fit), 3 seeds,
+scored on every test row. Each figure is shown against **naive persistence** —
+"this agent sells next year exactly what they sold last year" — because a sales
+forecast with no baseline cannot be judged.
 
-| Massachusetts, whole model | model | naive persistence |
-|---|---|---|
-| volume MdAPE | **46.6%** | 58.0% |
-| volume MAE | **$1,502,939** | $1,778,205 |
-| units MAE | **2.70** | 3.11 |
-| volume 95% band coverage | **95.5%** | — |
+| | volume error (MdAPE) | units error (MAE) | ranking (Spearman) | 95% range holds | agents scored |
+|---|---|---|---|---|---|
+| **Massachusetts** | **46.6%** vs 58.0% naive | **2.70** vs 3.11 naive | **0.739** vs 0.608 | 95.5% | 27,019 |
+| **Rhode Island** | **45.7%** vs 57.1% naive | **2.86** vs 3.08 naive | **0.716** vs 0.611 | 94.8% | 4,606 |
 
-> **Volume R² (0.6408) loses to persistence (0.7324) — expected, not a defect.**
-> R² is squared error dominated by the largest producers, and the pipeline
-> shrinks. Each state loses one target this way: MA on volume, RI on units.
-> The model beats persistence on every scale-free metric on both targets.
-> **Never quote R² without its baseline.**
+*Test window: 47,889 MA agent-quarters, 7,989 RI. Bold = the model; it beats the
+baseline in every column that has one.*
+
+**What those columns mean**
+
+- **MdAPE** — the typical agent's percentage miss. Scale-free, so it is the one
+  error figure that *is* comparable across states.
+- **MAE** — the average absolute miss. **Not comparable across states**: MA's
+  average sale price is $794K vs RI's $625K, so MA dollar errors are naturally
+  larger. On volume, MA beats its baseline by 15.5% and RI by 12.2%.
+- **Spearman** — ranking quality: does the model put the right agents at the top?
+  This is the closest analogue to AUC for a continuous forecast, and it is where
+  the model beats persistence most decisively in both states.
+- **95% range holds** — of the agents who did sell, how often the true value
+  landed inside the 95% band. Nominal is 95%, so both states are within ~0.5pt.
+
+**The other half of the model.** Each forecast is a *hurdle*: first "will this
+agent sell anything at all", then "how much, if they do". The first half is a
+real classifier and it is strong — **AUC 0.857 (MA) / 0.824 (RI)** on volume.
+That half matters more in MA, where **31.2%** of agents post zero next-12-month
+volume versus RI's **24.8%**. It is reported as its own column rather than folded
+into a range that collapses to $0.
+
+> **Volume R² tells the opposite story, and that is expected — not a defect.**
+> MA scores 0.641 against persistence's 0.732; RI *wins* on volume (0.715 vs
+> 0.702) but **loses on units** (0.757 vs 0.791). Each state loses one target.
+> R² is squared error, so it is dominated almost entirely by the largest
+> producers, and the pipeline deliberately shrinks its predictions. Shrinking is
+> right for the typical agent — it wins MdAPE by 11.4 points — but on a very
+> large producer who does repeat, predicting 0.8× last year costs a squared
+> error that persistence never pays.
+> **Never quote R² without its baseline.** Alone it invites the opposite of the
+> correct conclusion.
 
 Full detail: [MA/README.md](MA/README.md) ·
 [docs/RI_Forecasted_Sales_HANDOFF.md](docs/RI_Forecasted_Sales_HANDOFF.md) ·
